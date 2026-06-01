@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Вход администратора — Учусь.РФ{% endblock %}
+
+{% block content %}
+<div class="auth-card card shadow-sm animate-in">
+    <div class="card-body p-4">
+        <h1 class="page-title">Панель администратора</h1>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary w-100">Войти</button>
+        </form>
+        <p class="text-center mt-3 mb-0">
+            <a href="{% url 'index' %}">На главную</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
