@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Регистрация — Учусь.РФ{% endblock %}
+
+{% block content %}
+<div class="auth-card card shadow-sm animate-in">
+    <div class="card-body p-4">
+        <h1 class="page-title">Регистрация</h1>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="mb-3">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="invalid-feedback d-block">
+                            {% for error in field.errors %}{{ error }}{% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+        </form>
+        <p class="text-center mt-3 mb-0">
+            <a href="{% url 'login' %}">Уже есть аккаунт? Войти</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
